@@ -63,23 +63,25 @@ class ZoomJoiner(rumps.App):
             webbrowser.open(urlList[0])
 
         print(meetingTime)
-        for testVar in dayList:
-            if dayList[testVar].lower() in ["su", "sunday", "sun", "1",]:
-                schedule.every().sunday.at(timeList[testVar]).do(joinMeeting)
-            elif dayList[testVar].lower() in ["m", "monday", "mon", "2"]:
-                schedule.every().monday.at(timeList[testVar]).do(joinMeeting)
-            elif dayList[testVar].lower() in ["t", "tuesday", "tues", "3"]:
-                schedule.every().tuesday.at(timeList[testVar]).do(joinMeeting)
-            elif dayList[testVar].lower() in ["w", "wednesday", "wed", "4"]:
-                schedule.every().wednesday.at(timeList[testVar]).do(joinMeeting)
-            elif dayList[testVar].lower() in ["th", "thursday", "thurs", "5"]:
-                schedule.every().thursday.at(timeList[testVar]).do(joinMeeting)
-            elif dayList[testVar].lower() in ["f", "friday", "fri", "6"]:
-                schedule.every().friday.at(timeList[testVar]).do(joinMeeting)
-            elif dayList[testVar].lower() in ["sa", "s", "saturday", "sat", "7"]:
-                schedule.every().monday.at(timeList[testVar]).do(joinMeeting)
-            else:
-                rumps.alert(title="Error", message="Please enter a valid day of the week", ok="OK")
+        testVar = -1
+        # for testVar in dayList:
+        #     testVar += 1
+        if dayList[0].lower() in ["su", "sunday", "sun", "1",]:
+            schedule.every().sunday.at(timeList[0]).do(joinMeeting)
+        elif dayList[0].lower() in ["m", "monday", "mon", "2"]:
+            schedule.every().monday.at(timeList[0]).do(joinMeeting)
+        elif dayList[0].lower() in ["t", "tuesday", "tues", "3"]:
+            schedule.every().tuesday.at(timeList[0]).do(joinMeeting)
+        elif dayList[0].lower() in ["w", "wednesday", "wed", "4"]:
+            schedule.every().wednesday.at(timeList[0]).do(joinMeeting)
+        elif dayList[testVar].lower() in ["th", "thursday", "thurs", "5"]:
+            schedule.every().thursday.at(timeList[testVar]).do(joinMeeting)
+        elif dayList[0].lower() in ["f", "friday", "fri", "6"]:
+            schedule.every().friday.at(timeList[0]).do(joinMeeting)
+        elif dayList[0].lower() in ["sa", "s", "saturday", "sat", "7"]:
+            schedule.every().saturday.at(timeList[0]).do(joinMeeting)
+        else:
+            rumps.alert(title="Error", message="Please enter a valid day of the week", ok="OK")
         
         
     @rumps.clicked("Join Meeting Manually")
@@ -87,18 +89,17 @@ class ZoomJoiner(rumps.App):
         webbrowser.open(urlList[0])
 
     global testFunction
-    async def testFunction():
+    def testFunction():
         schedule.run_pending()
         time.sleep(1)
 
     @rumps.clicked("Auto Join Meetings")
     def runFunction(self, sender):
         sender.state = not sender.state
-        loop = asyncio.get_event_loop()
-        loop.create_task(testFunction())
-    
-        loop.run_forever()
-
+        while True:
+            schedule.run_pending()
+            time.sleep(1)
+            
     @rumps.clicked("View Schedule")
     def schedule(self, _):
         var = -1
