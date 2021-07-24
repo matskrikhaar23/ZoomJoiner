@@ -1,3 +1,7 @@
+#ATTENTION: This program only works on MacOS.
+#If you are on Windows, or do not want to paste this code into Visual Studio, a video showing off how it works can be acessed here: https://www.youtube.com/watch?v=Rl1O77DEKGY
+#Enjoy!
+
 from re import L
 import webbrowser
 import time
